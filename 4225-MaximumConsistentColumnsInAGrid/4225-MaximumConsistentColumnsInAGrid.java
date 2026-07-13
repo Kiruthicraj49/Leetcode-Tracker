@@ -1,0 +1,27 @@
+// Last updated: 13/07/2026, 12:43:48
+class Solution {
+    public int maxConsistentColumns(int[][] grid, int limit) {
+       int[][] ca = grid;
+        int m = grid.length;
+        int n = grid[0].length;
+        int[] dp = new int[n];
+        int max =1;
+        for(int j=0;j<n;j++){
+            dp[j]=1;
+            for(int i=0;i<j;i++){
+                boolean isconsistent=true;
+                for(int r=0;r<m;r++){
+                    if(Math.abs(grid[r][j] - grid[r][i]) > limit){
+                        isconsistent =false;
+                        break;
+                    }
+                }
+                if(isconsistent){
+                    dp[j] = Math.max(dp[j],dp[i] + 1);
+                }
+            }
+            max = Math.max(max,dp[j]);
+        }
+        return max;
+    }
+}
